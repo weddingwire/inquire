@@ -185,6 +185,8 @@ private extension Form /* Private */ {
         
         dispatch_once(&token) {
             
+            self.setupOrderedNavigation()
+            
             let children = Mirror(reflecting: self).children.filter { $0.label != nil }
             
             for (label, value) in children {
@@ -196,13 +198,13 @@ private extension Form /* Private */ {
                 
                 switch value {
                 case is TextView:
-                    var field = (item as! TextView)
+                    let field = (item as! TextView)
                     field.name  = label!
                     
                     break
                     
                 case is TextField:
-                    var field   = (item as! TextField)
+                    let field   = (item as! TextField)
                     field.name  = label!
 
                     break
@@ -211,9 +213,6 @@ private extension Form /* Private */ {
                     break
                 }
             }
-            
-            self.setupOrderedNavigation()
-
         }
     }
 

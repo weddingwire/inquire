@@ -14,10 +14,10 @@ import UIKit
 public class PickerField : TextField {
     public var pickerView:UIPickerView = UIPickerView()
     
-    public required init(validators: [ValidationRule], setup: (TextField -> Void)?) {
+    public required init(validators: [ValidationRule], setup: ((TextField) -> Void)?) {
         super.init(validators: validators, setup: setup)
         
-        clearButtonMode = .Never
+        clearButtonMode = .never
         self.inputView = pickerView
     }
     
@@ -27,16 +27,16 @@ public class PickerField : TextField {
     
     //MARK: Picker cursor functions
     
-    override public func caretRectForPosition(position: UITextPosition) -> CGRect {
+    public override func caretRect(for position: UITextPosition) -> CGRect {
         return CGRect.zero
     }
     
-    override public func selectionRectsForRange(range: UITextRange) -> [AnyObject] {
+    public override func selectionRects(for range: UITextRange) -> [Any] {
         return []
     }
     
-    override public func canPerformAction(action: Selector, withSender sender: AnyObject?) -> Bool {
-        if action == #selector(NSObject.copy(_:)) || action == #selector(NSObject.selectAll(_:)) || action == #selector(NSObject.paste(_:)) {
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(copy(_:)) || action == #selector(selectAll(_:)) || action == #selector(paste(_:)) {
             return false
         } else {
             return true

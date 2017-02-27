@@ -185,6 +185,9 @@ fileprivate extension Form /* Private */ {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
         
+        // Needs to happen before any other properties are set on the fields, otherwise next/previous field values will be nil
+        self.setupOrderedNavigation()
+        
         let children = Mirror(reflecting: self).children.filter { $0.label != nil }
         
         for (label, value) in children {
@@ -211,8 +214,6 @@ fileprivate extension Form /* Private */ {
                 break
             }
         }
-            
-        self.setupOrderedNavigation()
     }
 
 }

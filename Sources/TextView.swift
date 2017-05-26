@@ -40,7 +40,7 @@ open class TextView : UITextView, Field {
     open var name:String = ""
     
     /// meta data for field
-    open var meta:[String:AnyObject] = [:]
+    open var meta:[String:Any] = [:]
     
     fileprivate lazy var toolbar:UIToolbar = {
         let frame       = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: 44)

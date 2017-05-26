@@ -36,7 +36,7 @@ public protocol Field : class {
     var onError:FieldErrorHandler?          {get set} 
     
     // Nice to have
-    var meta:[String:AnyObject] {get set}
+    var meta:[String:Any] {get set}
     
     func validate() -> Bool
     func move(_ to:Field)

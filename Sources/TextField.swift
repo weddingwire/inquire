@@ -30,7 +30,7 @@ open class TextField : UITextField, Field {
     open var title:String = ""
 
     /// meta data for field
-    open var meta:[String:AnyObject] = [:]
+    open var meta:[String:Any] = [:]
     
     /// Input toolbar
     fileprivate lazy var toolbar:UIToolbar = {

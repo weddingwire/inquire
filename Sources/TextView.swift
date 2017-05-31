@@ -115,7 +115,7 @@ open class TextView : UITextView, Field {
         guard text.isEmpty else { return }
         guard let placeholder = self.placeholder else { return }
         
-        var placeholderAttributes = typingAttributes ?? [String: AnyObject]()
+        var placeholderAttributes = typingAttributes
         
         if placeholderAttributes[NSFontAttributeName] == nil {
             placeholderAttributes[NSFontAttributeName] = typingAttributes[NSFontAttributeName] ?? font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)

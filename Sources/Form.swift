@@ -141,8 +141,8 @@ fileprivate extension Form /* Private */ {
         if let _self = self as? FormFieldDefaults {
             field.font          = _self.font
             field.textColor     = _self.textColor
-            field.textAlignment = _self.textAlignment   ?? .left
-            field.keyboardType  = _self.keyboardType    ?? .default
+            field.textAlignment = _self.textAlignment
+            field.keyboardType  = _self.keyboardType
             
             if  field.validators.count == 0 {
                 field.validators = _self.defaultValidation

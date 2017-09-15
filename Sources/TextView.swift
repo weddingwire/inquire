@@ -117,24 +117,24 @@ open class TextView : UITextView, Field {
         
         var placeholderAttributes = typingAttributes
         
-        if placeholderAttributes[NSFontAttributeName] == nil {
-            placeholderAttributes[NSFontAttributeName] = typingAttributes[NSFontAttributeName] ?? font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        if placeholderAttributes[NSAttributedStringKey.font] == nil {
+            placeholderAttributes[NSAttributedStringKey.font] = typingAttributes[NSAttributedStringKey.font] ?? font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
         }
         
-        if placeholderAttributes[NSParagraphStyleAttributeName] == nil {
-            let typingParagraphStyle = typingAttributes[NSParagraphStyleAttributeName]
+        if placeholderAttributes[NSAttributedStringKey.paragraphStyle] == nil {
+            let typingParagraphStyle = typingAttributes[NSAttributedStringKey.paragraphStyle]
             if typingParagraphStyle == nil {
                 let paragraphStyle              = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
                 paragraphStyle.alignment        = textAlignment
                 paragraphStyle.lineBreakMode    = textContainer.lineBreakMode
                 
-                placeholderAttributes[NSParagraphStyleAttributeName] = paragraphStyle
+                placeholderAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
             } else {
-                placeholderAttributes[NSParagraphStyleAttributeName] = typingParagraphStyle
+                placeholderAttributes[NSAttributedStringKey.paragraphStyle] = typingParagraphStyle
             }
         }
         
-        placeholderAttributes[NSForegroundColorAttributeName] = placeholderColor
+        placeholderAttributes[NSAttributedStringKey.foregroundColor] = placeholderColor
         
         let placeholderRect = rect.insetBy(dx: contentInset.left + textContainerInset.left + textContainer.lineFragmentPadding, dy: contentInset.top + textContainerInset.top)
         
@@ -143,7 +143,7 @@ open class TextView : UITextView, Field {
 }
 
 extension TextView /* Internal */ {
-    internal func textChanged(_ notification:Notification) {
+    @objc internal func textChanged(_ notification:Notification) {
         guard let textView = notification.object as? TextView, textView == self else {
             return
         }

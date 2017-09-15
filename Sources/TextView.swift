@@ -111,33 +111,37 @@ open class TextView : UITextView, Field {
     
     open override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
+
         guard text.isEmpty else { return }
         guard let placeholder = self.placeholder else { return }
-        
-        var placeholderAttributes = typingAttributes
-        
-        if placeholderAttributes[NSAttributedStringKey.font] == nil {
-            placeholderAttributes[NSAttributedStringKey.font] = typingAttributes[NSAttributedStringKey.font] ?? font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+
+        var placeholderAttributes: [NSAttributedStringKey: Any] = [:]
+
+        for (k,v) in typingAttributes {
+           placeholderAttributes[.init(k)] = v
         }
-        
+
+        if placeholderAttributes[.font] == nil {
+            placeholderAttributes[.font] = typingAttributes[NSAttributedStringKey.font.rawValue] ?? font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        }
+
         if placeholderAttributes[NSAttributedStringKey.paragraphStyle] == nil {
-            let typingParagraphStyle = typingAttributes[NSAttributedStringKey.paragraphStyle]
+            let typingParagraphStyle = typingAttributes[NSAttributedStringKey.paragraphStyle.rawValue]
             if typingParagraphStyle == nil {
                 let paragraphStyle              = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
                 paragraphStyle.alignment        = textAlignment
                 paragraphStyle.lineBreakMode    = textContainer.lineBreakMode
-                
-                placeholderAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
+
+                placeholderAttributes[.paragraphStyle] = paragraphStyle
             } else {
-                placeholderAttributes[NSAttributedStringKey.paragraphStyle] = typingParagraphStyle
+                placeholderAttributes[.paragraphStyle] = typingParagraphStyle
             }
         }
-        
-        placeholderAttributes[NSAttributedStringKey.foregroundColor] = placeholderColor
-        
+
+        placeholderAttributes[.foregroundColor] = placeholderColor
+
         let placeholderRect = rect.insetBy(dx: contentInset.left + textContainerInset.left + textContainer.lineFragmentPadding, dy: contentInset.top + textContainerInset.top)
-        
+
         placeholder.draw(in: placeholderRect, withAttributes: placeholderAttributes)
     }
 }
